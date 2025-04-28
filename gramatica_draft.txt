@@ -1,0 +1,57 @@
+(* Programa: sequência de pensamentos *)
+programa         = { pensamento } ;
+
+(* Tipos de pensamentos possíveis *)
+pensamento       = atribuicao
+                 | pergunta
+                 | resposta
+                 | condicional
+                 | repeticao ;
+
+(* Atribuição de valor a uma variável *)
+atribuicao       = "penso" identificador "é" expressao ;
+
+(* Perguntar algo ao usuário e guardar a resposta *)
+pergunta         = "questiono" texto "e guardo em" identificador ;
+
+(* Imprimir uma mensagem ou valor *)
+resposta         = "digo" expressao ;
+
+(* Condicional baseada em uma expressão lógica *)
+condicional      = "considero" expressao "então" bloco [ "talvez" bloco ] "fim" ;
+
+(* Laço de repetição enquanto a condição for verdadeira *)
+repeticao        = "continuo" "enquanto" expressao bloco "fim" ;
+
+(* Bloco de pensamentos aninhados *)
+bloco            = { pensamento } ;
+
+(* Expressão matemática ou lógica *)
+expressao        = termo { operador termo } ;
+
+(* Operadores permitidos *)
+operador         = "+" | "-" | "*" | "/" | ">" | "<" | ">=" | "<=" | "==" | "!=" ;
+
+(* Termos de uma expressão *)
+termo            = numero
+                 | texto
+                 | identificador
+                 | "(" expressao ")" ;
+
+(* Identificadores: começam com letra, podem ter letras, dígitos ou underscores *)
+identificador    = letra { letra | digito | "_" } ;
+
+(* Literais numéricos: sequência de dígitos *)
+numero           = digito { digito } ;
+
+(* Literais de texto: sequência de caracteres visíveis entre aspas *)
+texto            = '"' { qualquer_caractere } '"' ;
+
+(* Letras permitidas: qualquer caractere de 'a'-'z' ou 'A'-'Z' *)
+letra            = 'a'..'z' | 'A'..'Z' ;
+
+(* Dígitos permitidos: qualquer caractere de '0'-'9' *)
+digito           = '0'..'9' ;
+
+(* Qualquer caractere visível permitido em strings *)
+qualquer_caractere = ? qualquer caractere visível exceto aspas ? ;
