@@ -80,7 +80,10 @@ fim
    ```bash
    ./draft < <seu_arquivo.dft>
    ```
-
+    Se quiser usar os exemplos já prontos, execute:
+    ```bash
+    ./draft < exemplos/{arquivo}.dft
+    ```
 
 
 ## 📚 Créditos
