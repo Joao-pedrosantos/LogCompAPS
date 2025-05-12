@@ -1,0 +1,12 @@
+penso limite é 0
+questiono "Somar de 1 até quanto?" e guardo em limite
+
+penso soma é 0
+penso i é 1
+
+continuo enquanto i <= limite
+    penso soma é soma + i
+    penso i é i + 1
+fim
+
+digo "A soma de 1 até " + limite + " é " + soma

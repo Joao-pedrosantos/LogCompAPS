@@ -1,0 +1,8 @@
+penso idade é 0
+questiono "Qual sua idade?" e guardo em idade
+
+considero idade >= 18 então
+    digo "Você é maior de idade."
+talvez
+    digo "Você ainda é menor de idade."
+fim

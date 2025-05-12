@@ -1,0 +1,3 @@
+digo "Olá! Este é meu primeiro programa Draft."
+penso contador é 1
+digo "Contador vale: " + contador

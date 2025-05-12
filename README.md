@@ -1,6 +1,6 @@
 # Draft
 
-Uma linguagem de programação inspirada no **fluxo de consciência**, criada como parte da APS de Lógica da Computação – 2025/1.
+Uma linguagem de programação inspirada no fluxo de consciência, criada como parte da APS de Lógica da Computação – 2025/1.
 
 Draft simula o processo natural de pensamento humano, onde ideias surgem de forma livre e são transformadas em ações. Cada programa em Draft é como um rascunho de pensamentos: fluído, expressivo e natural.
 
@@ -69,12 +69,19 @@ fim
 
 ---
 
-## 🚀 Como Executar (Futuro)
+## 🚀 Como Executar
 
-- Será implementado um compilador utilizando **Flex** e **Bison**.
-- O programa interpretará arquivos `.dft` e poderá rodar os fluxos de pensamento programados.
+1. Rode o arquivo makefile para compilar o interpretador:
+   ```bash
+   make
+   ```
 
----
+2. Execute o interpretador com um arquivo Draft:
+   ```bash
+   ./draft < <seu_arquivo.dft>
+   ```
+
+
 
 ## 📚 Créditos
 
