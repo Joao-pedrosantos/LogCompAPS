@@ -26,7 +26,7 @@ Em vez de comandos secos como `if`, `while`, `print`, a linguagem utiliza termos
 
 ## 🔣 Gramática (EBNF)
 
-A gramática completa da Draft pode ser encontrada no arquivo `gramatica_draft.txt`.
+A gramática completa da Draft pode ser encontrada no arquivo `docs/gramatica_draft.txt`.
 
 Principais construções:
 
@@ -43,27 +43,25 @@ Principais construções:
 ## 🧪 Exemplo de Código (.dft)
 
 ```plaintext
-penso idade é 0
-questiono "Qual sua idade?" e guardo em idade
+penso limite é 0
+questiono "Somar de 1 até quanto?" e guardo em limite
 
-considero idade maior que 18 então
-    digo "Você é maior de idade"
-talvez
-    digo "Você ainda é menor"
+penso soma é 0
+penso i é 1
+
+continuo enquanto i <= limite
+    penso soma é soma + i
+    penso i é i + 1
 fim
 
-penso contador é 0
-continuo enquanto contador menor que 3
-    digo "Contando: " + contador
-    penso contador é contador + 1
-fim
+digo "A soma de 1 até " + limite + " é " + soma
 ```
 
 ---
 
 ## 🔥 Curiosidades
 
-- Draft é inspirado em técnicas literárias de **stream of consciousness**.
+- Draft é inspirado em técnicas literárias de **fluxo de consciência**, como usado no livro **Angústia**, de **Graciliano Ramos**.
 - Reflete o desejo de criar programas mais **humanos, expressivos e intuitivos**.
 - Utiliza a extensão `.dft` para seus arquivos.
 
