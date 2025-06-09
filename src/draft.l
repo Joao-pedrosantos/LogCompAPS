@@ -1,44 +1,44 @@
+%option noyywrap
 %{
-#include "draft.tab.h"   /* tokens do Bison */
-#include <stdlib.h>
+#include "ast.h"
+#include "draft.tab.h"
 #include <string.h>
 %}
-
-%option noyywrap
-
-DIGIT   [0-9]
-ID      [a-zA-Z][a-zA-Z0-9_]*
-
 %%
-
-"penso"             { return TK_PENSO; }
-"é"                 { return TK_EH; }
-"questiono"         { return TK_QUESTIONO; }
-"e"                 { return TK_E; }
-"guardo"            { return TK_GUARDO; }
-"em"                { return TK_EM; }
-"digo"              { return TK_DIGO; }
-"considero"         { return TK_CONSIDERO; }
-"então"             { return TK_ENTAO; }
-"talvez"            { return TK_TALVEZ; }
-"fim"               { return TK_FIM; }
-"continuo"          { return TK_CONTINUO; }
-"enquanto"          { return TK_ENQUANTO; }
-"=="                { return TK_EQ; }
-"!="                { return TK_NEQ; }
-">="                { return TK_GTE; }
-"<="                { return TK_LTE; }
-">"                 { return TK_GT; }
-"<"                 { return TK_LT; }
-"+"                 { return TK_PLUS; }
-"-"                 { return TK_MINUS; }
-"*"                 { return TK_MUL; }
-"/"                 { return TK_DIV; }
-{DIGIT}+            { yylval.intVal = atoi(yytext); return TK_NUM; }
-\"([^\\\n\"]|\\.)*\" { yylval.strVal = strdup(yytext); return TK_STR; }
-{ID}                { yylval.strVal = strdup(yytext); return TK_ID; }
-[ \t\r\n]+          { /* ignora */ }
-"//".*              { /* ignora */ }
-.                   { fprintf(stderr,"Caractere inesperado: %s\n",yytext); }
-
+[\r\n]+                      { return ';'; }
+[ \t]+                       { /* ignora espaços */     }
+"penso"                      { return KW_PENSO; }
+"é"                          { return KW_EH;    }
+"digo"                       { return KW_DIGO;  }
+"questiono"                  { return KW_QST;   }
+"guardo"                     { return KW_GUARDO;}
+"em"                         { return KW_EM;    }
+"considero"                  { return KW_CONS;  }
+"então"                      { return KW_ENTAO; }
+"talvez"                     { return KW_TALVEZ;}
+"fim"                        { return KW_FIM;   }
+"continuo"                   { return KW_CONT;  }
+"enquanto"                   { return KW_ENQ;   }
+">="                         { return GE; }
+"<="                         { return LE; }
+"!="                         { return NE; }
+"=="                         { return EQ; }
+">"                          { return GT; }
+"<"                          { return LT; }
+\"([^\\\"]|\\.)*\"           {
+                               yylval.sval=strdup(yytext+1);
+                               yylval.sval[strlen(yylval.sval)-1]='\0';
+                               return STR;
+                             }
+[0-9]+                       { yylval.ival = atol(yytext); return NUM; }
+[a-zA-Z_][a-zA-Z0-9_]*       { yylval.sval = strdup(yytext); return ID; }
+"="                         { return '='; }
+"+"                         { return '+'; }
+"-"                         { return '-'; }
+"*"                         { return '*'; }
+"/"                         { return '/'; }
+"("                         { return '('; }
+")"                         { return ')'; }
+";"                         { return ';'; }
+.    { fprintf(stderr,"caractere inválido: %s\n", yytext); }
 %%

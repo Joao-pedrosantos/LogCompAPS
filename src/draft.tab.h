@@ -54,32 +54,28 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    TK_PENSO = 258,                /* TK_PENSO  */
-    TK_EH = 259,                   /* TK_EH  */
-    TK_QUESTIONO = 260,            /* TK_QUESTIONO  */
-    TK_E = 261,                    /* TK_E  */
-    TK_GUARDO = 262,               /* TK_GUARDO  */
-    TK_EM = 263,                   /* TK_EM  */
-    TK_DIGO = 264,                 /* TK_DIGO  */
-    TK_CONSIDERO = 265,            /* TK_CONSIDERO  */
-    TK_ENTAO = 266,                /* TK_ENTAO  */
-    TK_TALVEZ = 267,               /* TK_TALVEZ  */
-    TK_FIM = 268,                  /* TK_FIM  */
-    TK_CONTINUO = 269,             /* TK_CONTINUO  */
-    TK_ENQUANTO = 270,             /* TK_ENQUANTO  */
-    TK_PLUS = 271,                 /* TK_PLUS  */
-    TK_MINUS = 272,                /* TK_MINUS  */
-    TK_MUL = 273,                  /* TK_MUL  */
-    TK_DIV = 274,                  /* TK_DIV  */
-    TK_GT = 275,                   /* TK_GT  */
-    TK_LT = 276,                   /* TK_LT  */
-    TK_GTE = 277,                  /* TK_GTE  */
-    TK_LTE = 278,                  /* TK_LTE  */
-    TK_EQ = 279,                   /* TK_EQ  */
-    TK_NEQ = 280,                  /* TK_NEQ  */
-    TK_NUM = 281,                  /* TK_NUM  */
-    TK_STR = 282,                  /* TK_STR  */
-    TK_ID = 283                    /* TK_ID  */
+    NUM = 258,                     /* NUM  */
+    ID = 259,                      /* ID  */
+    STR = 260,                     /* STR  */
+    KW_PENSO = 261,                /* KW_PENSO  */
+    KW_EH = 262,                   /* KW_EH  */
+    KW_DIGO = 263,                 /* KW_DIGO  */
+    KW_QST = 264,                  /* KW_QST  */
+    KW_GUARDO = 265,               /* KW_GUARDO  */
+    KW_EM = 266,                   /* KW_EM  */
+    KW_CONS = 267,                 /* KW_CONS  */
+    KW_ENTAO = 268,                /* KW_ENTAO  */
+    KW_TALVEZ = 269,               /* KW_TALVEZ  */
+    KW_FIM = 270,                  /* KW_FIM  */
+    KW_CONT = 271,                 /* KW_CONT  */
+    KW_ENQ = 272,                  /* KW_ENQ  */
+    KW_E = 273,                    /* KW_E  */
+    GE = 274,                      /* GE  */
+    LE = 275,                      /* LE  */
+    EQ = 276,                      /* EQ  */
+    NE = 277,                      /* NE  */
+    GT = 278,                      /* GT  */
+    LT = 279                       /* LT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -88,12 +84,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 10 "src/draft.y"
+#line 9 "src/draft.y"
 
-    int   intVal;
-    char *strVal;
+    long  ival;
+    char *sval;
+    Node *nptr;
 
-#line 97 "src/draft.tab.h"
+#line 94 "src/draft.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

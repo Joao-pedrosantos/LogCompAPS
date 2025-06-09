@@ -1,105 +1,80 @@
 %{
-  #include <stdio.h>
-  #include <stdlib.h>
-
-  int yylex(void);
-  void yyerror(const char *s) { fprintf(stderr,"Erro: %s\n",s); }
+#include "ast.h"
+#include <stdio.h>
+Node *ast_root;
+int yylex(void);
+void yyerror(const char *s){ fprintf(stderr,"Erro sintático: %s\n",s); }
 %}
 
-/* ── Tipos que o scanner envia ──────────── */
-%union {
-    int   intVal;
-    char *strVal;
+%union{
+    long  ival;
+    char *sval;
+    Node *nptr;
 }
 
-/* ── Tokens sem valor ───────────────────── */
-%token TK_PENSO TK_EH TK_QUESTIONO TK_E TK_GUARDO TK_EM TK_DIGO
-%token TK_CONSIDERO TK_ENTAO TK_TALVEZ TK_FIM TK_CONTINUO TK_ENQUANTO
-%token TK_PLUS TK_MINUS TK_MUL TK_DIV
-%token TK_GT TK_LT TK_GTE TK_LTE TK_EQ TK_NEQ
+%token <ival> NUM
+%token <sval> ID STR
+%token KW_PENSO KW_EH KW_DIGO KW_QST KW_GUARDO KW_EM
+%token KW_CONS KW_ENTAO KW_TALVEZ KW_FIM
+%token KW_CONT KW_ENQ
+%token KW_E
+%token GE LE EQ NE GT LT
 
-/* ── Tokens com valor ───────────────────── */
-%token <intVal> TK_NUM
-%token <strVal> TK_STR
-%token <strVal> TK_ID
+%left GE LE GT LT EQ NE
+%left '+' '-'
+%left '*' '/'
 
-/* ── Precedência ───────────────────────── */
-%left TK_PLUS TK_MINUS
-%left TK_MUL  TK_DIV
-%left TK_GT TK_LT TK_GTE TK_LTE TK_EQ TK_NEQ
+%type <nptr> program seq stmt plist cond expr
 
-%%  /* ─────────── Regras ─────────── */
+%%
 
-programa
-    : /* vazio */
-    | programa pensamento
-    ;
+program : seq                                     { ast_root = $1; }
+        ;
 
-pensamento
-    : atribuicao
-    | pergunta
-    | resposta
-    | condicional
-    | repeticao
-    ;
+seq     :                                          { $$ = NULL; }
+        | seq stmt                                { $$ = seq_append($1,$2); }
+        ;
 
-atribuicao
-    : TK_PENSO TK_ID TK_EH expressao
-    ;
+opt_e   :                                          { }
+        | KW_E                                    { }
+        ;
 
-pergunta
-    : TK_QUESTIONO TK_STR TK_E TK_GUARDO TK_EM TK_ID
-    ;
+opt_eol :                                         { }
+        | ';'                                    { }
 
-resposta
-    : TK_DIGO expressao
-    ;
+stmt    : KW_PENSO ID KW_EH expr                  { $$ = assign_node($2,$4); }
+        | KW_DIGO plist                           { $$ = $2; }
+        | KW_QST STR opt_e KW_GUARDO KW_EM ID     { $$ = scan_node($6,$2); }
+        | KW_CONS cond KW_ENTAO opt_eol seq KW_FIM
+                                                { $$ = if_node($2,$5,NULL); }
+        | KW_CONS cond KW_ENTAO opt_eol seq KW_TALVEZ opt_eol seq KW_FIM
+                                                { $$ = if_node($2,$5,$8); }
+        | KW_CONT KW_ENQ cond opt_eol seq KW_FIM  { $$ = while_node($3,$5); }
+        | ';'                                     { $$ = NULL; }
+        ;
 
-condicional
-    : TK_CONSIDERO expressao TK_ENTAO bloco cond_opcional TK_FIM
-    ;
+plist   : expr                                    { $$ = plist_append(NULL,$1); }
+        | STR                                     { $$ = plist_append(NULL,str_node($1)); }
+        | plist '+' expr                          { $$ = plist_append($1,$3); }
+        | plist '+' STR                           { $$ = plist_append($1,str_node($3)); }
+        ;
 
-cond_opcional
-    : /* vazio */
-    | TK_TALVEZ bloco
-    ;
+cond    : expr                                    { $$ = $1; }
+        | expr GT expr                            { $$ = binop_node(">", $1,$3); }
+        | expr GE expr                            { $$ = binop_node(">=",$1,$3); }
+        | expr LT expr                            { $$ = binop_node("<", $1,$3); }
+        | expr LE expr                            { $$ = binop_node("<=",$1,$3); }
+        | expr EQ expr                            { $$ = binop_node("==",$1,$3); }
+        | expr NE expr                            { $$ = binop_node("!=", $1,$3); }
+        ;
 
-repeticao
-    : TK_CONTINUO TK_ENQUANTO expressao bloco TK_FIM
-    ;
+expr    : NUM                                     { $$ = num_node($1); }
+        | ID                                      { $$ = id_node($1); }
+        | '(' expr ')'                            { $$ = $2; }
+        | expr '+' expr                           { $$ = binop_node("+",$1,$3); }
+        | expr '-' expr                           { $$ = binop_node("-",$1,$3); }
+        | expr '*' expr                           { $$ = binop_node("*",$1,$3); }
+        | expr '/' expr                           { $$ = binop_node("/",$1,$3); }
+        ;
 
-bloco
-    : pensamento
-    | bloco pensamento
-    ;
-
-/* ── Expressões ────────────────────────── */
-expressao
-    : termo
-    | expressao TK_PLUS  termo
-    | expressao TK_MINUS termo
-    | expressao TK_MUL   termo
-    | expressao TK_DIV   termo
-    | expressao TK_GT  termo
-    | expressao TK_LT  termo
-    | expressao TK_GTE termo
-    | expressao TK_LTE termo
-    | expressao TK_EQ  termo
-    | expressao TK_NEQ termo
-    ;
-
-termo
-    : TK_NUM
-    | TK_STR
-    | TK_ID
-    | '(' expressao ')'
-    ;
-
-%%  /* ── Código de apoio ───────────────── */
-
-int main(void){
-    printf("Iniciando análise...\n");
-    if(yyparse()==0)
-        printf("Análise concluída com sucesso!\n");
-    return 0;
-}
+%%
