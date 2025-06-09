@@ -103,8 +103,10 @@ static void emit_stmt(Node *s, FILE *f)
     }
 
     case N_SCAN:
-        fprintf(f,"printf(\"%s\");\n",(char*)s->right);
-        fprintf(f,"scanf(\"%%ld\", &%s);\n", s->text);
+        fprintf(f, "printf(\"%s \"); fflush(stdout);\n", (char*)s->right);
+        /* CORREÇÃO: Adicionado um espaço antes de "%ld" para consumir quebras de linha
+           ou espaços em branco que sobraram no buffer de entrada. */
+        fprintf(f, "scanf(\" %%ld\", &%s);\n", s->text);
         break;
 
     case N_IF:

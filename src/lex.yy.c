@@ -355,8 +355,8 @@ static void yynoreturn yy_fatal_error ( const char* msg  );
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
-#define YY_NUM_RULES 33
-#define YY_END_OF_BUFFER 34
+#define YY_NUM_RULES 34
+#define YY_END_OF_BUFFER 35
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -366,16 +366,16 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[96] =
     {   0,
-        0,    0,   34,   32,    2,    1,    1,   32,   32,   29,
-       30,   27,   25,   26,   28,   22,   31,   20,   24,   19,
-       23,   23,   23,   23,   23,   23,   23,   23,   23,   32,
-        2,    1,   17,    0,   21,    0,   22,   16,   18,   15,
-       23,   23,   23,    8,   23,   23,   23,   23,   23,   23,
-        4,   23,   23,   23,   23,   12,   23,   23,   23,   23,
-       23,   23,    5,   23,    0,   23,   23,   23,   23,   23,
-       23,   23,    0,   23,    3,   23,   23,   23,   23,   23,
-       10,    7,   23,   11,   23,   23,   23,   23,   23,   13,
-       14,   23,    9,    6,    0
+        0,    0,   35,   33,    2,    1,    1,   33,   33,   30,
+       31,   28,   26,   27,   29,   23,   32,   21,   25,   20,
+       24,   24,   24,    9,   24,   24,   24,   24,   24,   33,
+        2,    1,   18,    0,   22,    0,   23,   17,   19,   16,
+       24,   24,   24,    8,   24,   24,   24,   24,   24,   24,
+        4,   24,   24,   24,   24,   13,   24,   24,   24,   24,
+       24,   24,    5,   24,    0,   24,   24,   24,   24,   24,
+       24,   24,    0,   24,    3,   24,   24,   24,   24,   24,
+       11,    7,   24,   12,   24,   24,   24,   24,   24,   14,
+       15,   24,   10,    6,    0
 
     } ;
 
@@ -729,9 +729,10 @@ YY_DECL
 		}
 
 	{
-#line 7 "src/draft.l"
+#line 8 "src/draft.l"
 
-#line 735 "src/lex.yy.c"
+
+#line 736 "src/lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -791,175 +792,180 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 8 "src/draft.l"
+#line 10 "src/draft.l"
 { return ';'; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 9 "src/draft.l"
-{ /* ignora espaços */     }
+#line 11 "src/draft.l"
+{ /* ignora espaços e tabs */ }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 10 "src/draft.l"
+#line 12 "src/draft.l"
 { return KW_PENSO; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 11 "src/draft.l"
+#line 13 "src/draft.l"
 { return KW_EH;    }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 12 "src/draft.l"
+#line 14 "src/draft.l"
 { return KW_DIGO;  }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 13 "src/draft.l"
+#line 15 "src/draft.l"
 { return KW_QST;   }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 14 "src/draft.l"
+#line 16 "src/draft.l"
 { return KW_GUARDO;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 15 "src/draft.l"
+#line 17 "src/draft.l"
 { return KW_EM;    }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 16 "src/draft.l"
-{ return KW_CONS;  }
+#line 18 "src/draft.l"
+{ return KW_E;     } /* REGRA ADICIONADA */
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 17 "src/draft.l"
-{ return KW_ENTAO; }
+#line 19 "src/draft.l"
+{ return KW_CONS;  }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 18 "src/draft.l"
-{ return KW_TALVEZ;}
+#line 20 "src/draft.l"
+{ return KW_ENTAO; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 19 "src/draft.l"
-{ return KW_FIM;   }
+#line 21 "src/draft.l"
+{ return KW_TALVEZ;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 20 "src/draft.l"
-{ return KW_CONT;  }
+#line 22 "src/draft.l"
+{ return KW_FIM;   }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 21 "src/draft.l"
-{ return KW_ENQ;   }
+#line 23 "src/draft.l"
+{ return KW_CONT;  }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 22 "src/draft.l"
-{ return GE; }
+#line 24 "src/draft.l"
+{ return KW_ENQ;   }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 23 "src/draft.l"
-{ return LE; }
+#line 25 "src/draft.l"
+{ return GE; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 24 "src/draft.l"
-{ return NE; }
+#line 26 "src/draft.l"
+{ return LE; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 25 "src/draft.l"
-{ return EQ; }
+#line 27 "src/draft.l"
+{ return NE; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 26 "src/draft.l"
-{ return GT; }
+#line 28 "src/draft.l"
+{ return EQ; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 27 "src/draft.l"
-{ return LT; }
+#line 29 "src/draft.l"
+{ return GT; }
 	YY_BREAK
 case 21:
-/* rule 21 can match eol */
 YY_RULE_SETUP
-#line 28 "src/draft.l"
-{
-                               yylval.sval=strdup(yytext+1);
-                               yylval.sval[strlen(yylval.sval)-1]='\0';
-                               return STR;
-                             }
+#line 30 "src/draft.l"
+{ return LT; }
 	YY_BREAK
 case 22:
+/* rule 22 can match eol */
 YY_RULE_SETUP
-#line 33 "src/draft.l"
-{ yylval.ival = atol(yytext); return NUM; }
+#line 32 "src/draft.l"
+{
+                           yylval.sval=strdup(yytext+1);
+                           yylval.sval[strlen(yylval.sval)-1]='\0';
+                           return STR;
+                         }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 34 "src/draft.l"
-{ yylval.sval = strdup(yytext); return ID; }
+#line 38 "src/draft.l"
+{ yylval.ival = atol(yytext); return NUM; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 35 "src/draft.l"
-{ return '='; }
+#line 39 "src/draft.l"
+{ yylval.sval = strdup(yytext); return ID; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 36 "src/draft.l"
-{ return '+'; }
+#line 40 "src/draft.l"
+{ return '='; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 37 "src/draft.l"
-{ return '-'; }
+#line 41 "src/draft.l"
+{ return '+'; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 38 "src/draft.l"
-{ return '*'; }
+#line 42 "src/draft.l"
+{ return '-'; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 39 "src/draft.l"
-{ return '/'; }
+#line 43 "src/draft.l"
+{ return '*'; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 40 "src/draft.l"
-{ return '('; }
+#line 44 "src/draft.l"
+{ return '/'; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 41 "src/draft.l"
-{ return ')'; }
+#line 45 "src/draft.l"
+{ return '('; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 42 "src/draft.l"
-{ return ';'; }
+#line 46 "src/draft.l"
+{ return ')'; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 43 "src/draft.l"
-{ fprintf(stderr,"caractere inválido: %s\n", yytext); }
+#line 47 "src/draft.l"
+{ return ';'; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 44 "src/draft.l"
+#line 48 "src/draft.l"
+{ fprintf(stderr,"caractere inválido: %s\n", yytext); }
+	YY_BREAK
+case 34:
+YY_RULE_SETUP
+#line 50 "src/draft.l"
 ECHO;
 	YY_BREAK
-#line 963 "src/lex.yy.c"
+#line 969 "src/lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1964,5 +1970,5 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 44 "src/draft.l"
+#line 50 "src/draft.l"
 

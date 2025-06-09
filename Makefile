@@ -15,19 +15,27 @@ $(EXE): $(SRC)/draft.l $(SRC)/draft.y \
 	$(BISON) -o $(SRC)/draft.tab.c $(SRC)/draft.y
 	$(FLEX)  -o $(SRC)/lex.yy.c     $(SRC)/draft.l
 	$(CC) -o $@ $(SRC)/lex.yy.c $(SRC)/draft.tab.c \
-              $(SRC)/ast.c $(SRC)/codegen.c $(SRC)/main.c -lfl
+	          $(SRC)/ast.c $(SRC)/codegen.c $(SRC)/main.c -lfl
 
 # run ARQ=examples/arquivo.dft
 run: $(EXE)
-	@ARQ ?= examples/hello.dft
+	@$(eval ARQ ?= examples/hello_world.dft)
 	@echo ">> Rodando $(ARQ)"
-	@./$(EXE) < $(ARQ)
+	@./$(EXE) $(ARQ) && ./temp.out
 
 test: $(EXE)
 	@set -e
 	@for f in $(EXAMPLES); do \
-		echo "==> $$f";          \
-		./$(EXE) < $$f;          \
+		echo "==> $$f"; \
+		./$(EXE) $$f; \
+		INPUT_FILE="$${f%.dft}.in"; \
+		if [ -f "$$INPUT_FILE" ]; then \
+			echo "--- Usando entrada de $$INPUT_FILE ---"; \
+			./temp.out < "$$INPUT_FILE"; \
+		else \
+			./temp.out; \
+		fi; \
+		echo; \
 	done
 	@echo "Todos os testes passaram!"
 
