@@ -1,0 +1,6 @@
+penso x é 5
+considero x > 3 então
+    digo "maior que 3"
+talvez
+    digo "menor ou igual a 3"
+fim
