@@ -80,9 +80,13 @@ digo "A soma de 1 até " + limite + " é " + soma
    ```
     Se quiser usar os exemplos já prontos, execute:
     ```bash
-    ./draft < exemplos/{arquivo}.dft
+    make examples
     ```
+    ou
 
+   ```bash
+    make test
+    ```
 
 ## 📚 Créditos
 
